@@ -1,0 +1,138 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #386fb0;">
+                        <h4 class="card-title" style="color: white;">Creation Dossier</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="createDossierForm">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                      <input [formControlName]="'fullName'" matInput placeholder="Nom - Prenom" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Genre</mat-label>
+                                    <select [formControlName]="'gender'" matNativeControl>
+                                      <option value="MASCULIN">MASCULIN</option>
+                                      <option value="FEMININ">FEMININ</option>
+                                      <option value="N/A">N/A</option>
+                                    </select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width" appearance="fill">
+                                    <input [formControlName]="'phone'" matInput placeholder="Telephone" type="text">
+                                  </mat-form-field>
+                                </div>
+                                       
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <input [formControlName]="'address'" matInput placeholder="Adresse" type="text">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <mat-label>Race</mat-label>
+                                  <select [formControlName]="'race'" matNativeControl>
+                                    <option value="NOIRE">Noire</option>
+                                    <option value="BLANCHE">Blanche</option>
+                                    <option value="JAUNE">Jaune</option>
+                                    <option value="METIS">Metis</option>
+                                  </select>
+                                </mat-form-field>
+                              </div> 
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <input [formControlName]="'age'" matInput placeholder="Age" type="number">
+                                </mat-form-field>
+                              </div>
+                              
+                              
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field appearance="fill">
+                                  <mat-label>Antecedants</mat-label>
+                                  <mat-select [formControlName]="'antecedant'" multiple>
+                                    <mat-option *ngFor="let antecedant of antecedantList" [value]="antecedant">{{antecedant}}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <input [formControlName]="'implantationOlder'" matInput placeholder="Anciennete de l'Implantation" type="number">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <mat-label>Insuffisance Cardiaque</mat-label>
+                                  <select [formControlName]="'insuffisanceCardiaque'" matNativeControl>
+                                    <option value="OUI">OUI</option>
+                                    <option value="NON">NON</option>
+                                  </select>
+                                </mat-form-field>
+                              </div>
+          
+                            </div>                          
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Diagnostic Fibrillation</mat-label>
+                                    <select [formControlName]="'diagnostic'" matNativeControl>
+                                      <option value="OUI">OUI</option>
+                                      <option value="NON">NON</option>
+                                    </select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Charge Fibrillation</mat-label>
+                                    <input [formControlName]="'fibrilationLoad'" matInput placeholder="" type="number">
+                                  </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label for="">Electrocardiogramme</label>
+                                <mat-form-field class="example-full-width">
+                                  <input id="avatar-file-input" (change)="uploadElectroImage(avatarFileInput.files)" #avatarFileInput matInput type="file">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                      
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <label>Commentaire</label>
+                                  <mat-form-field class="example-full-width">
+                                     <textarea [formControlName]="'comment'" matInput placeholder=""></textarea>
+                                   </mat-form-field>
+                                    <!-- <div class="form-group">
+  
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                            <textarea class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" style="background-color: #386fb0;" class="btn pull-right" (click)="addDossier()">Enregistrer</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

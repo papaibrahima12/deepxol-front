@@ -1,0 +1,73 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card card-plain">
+                  <div class="card-header" style="background-color: #386fb0;" >
+                        <h4 class="card-title mt-0" style="color: white;">Liste des Dossiers</h4>
+                        <form [formGroup]="searchForm" class="navbar-form">
+                            <div class="input-group no-border">
+                                <input [formControlName]="'search'" type="text" value="" class="form-control" placeholder="Numero de Dossier">
+                                <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="search()">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="div">
+                            <button mat-raised-button type="submit" class="btn btn-white" (click)="add()">
+                                Ajouter
+                            </button>
+                        </div>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                            <thead class="text" style="color:#386fb0;">
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Prenom
+                                </th>
+                                <th>
+                                    Age
+                                </th>
+                                <th>
+                                    Fibrillation
+                                </th>
+                                <th>
+                                    Details
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dossier of fetchedDossier">
+                                    <td>
+                                        {{ dossier.dossierNumber }}
+                                    </td>
+                                    <td>
+                                        {{dossier.fullName}}
+                                    </td>
+                                    <td>
+                                        {{ dossier.age }}
+                                    </td>
+                                    <td>
+                                        {{ dossier.diagnostic }}
+                                    </td>
+                                    <td class="text-primary">
+                                        <div class="card-icon" (click)="openDetails(dossier)">
+                                            <i class="material-icons">remove_red_eye</i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

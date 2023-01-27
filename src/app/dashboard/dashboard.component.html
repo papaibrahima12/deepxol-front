@@ -1,0 +1,89 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-warning card-header-icon" >
+                      <div class="card-icon">
+                          <i class="material-icons">accessibility</i>
+                      </div>
+                      <p class="card-category">Total</p>
+                      <h3 class="card-title"> {{ total }}
+                          <small>Patients</small>
+                      </h3>
+                  </div>
+                 
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-danger card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <p class="card-category">Fibrillation</p>
+                      <h3 class="card-title">{{ fibrillation }}
+                        <small>Patients</small>
+                    </h3>
+                  </div>
+                 
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-success card-header-icon">
+                      <div class="card-icon">
+                          <i class="material-icons">info_outline</i>
+                      </div>
+                      <p class="card-category">Non Fibrillation</p>
+                      <h3 class="card-title">{{ notFibirillation }}
+                        <small>Patients</small>
+                    </h3>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                    <div class="ct-chart" id="websiteViewsChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Dossiers</h4>
+                    <p class="card-category">Evolution </p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-chart">
+                <div class="card-header card-header-danger">
+                    <div class="ct-chart" id="completedTasksChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Fibrillation</h4>
+                    <p class="card-category">Evolution</p>
+                </div>
+                
+            </div>
+        </div>
+          <div class="col-md-4">
+              <div class="card card-chart">
+                  <div class="card-header card-header-success">
+                      <div class="ct-chart" id="dailySalesChart"></div>
+                  </div>
+                  <div class="card-body">
+                      <h4 class="card-title">Non Fibrillation</h4>
+                      <p class="card-category">Evolution</p>
+
+                  </div>
+                  
+              </div>
+          </div>
+          
+          
+      </div>
+  </div>
+</div>

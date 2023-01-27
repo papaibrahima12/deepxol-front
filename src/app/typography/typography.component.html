@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="card-title mt-0 text-center">Numero : {{selectedDossier.dossierNumber}}</h3>
+    </div>
+</div>
+<hr>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #386fb0;">
+                        <h4 class="card-title" style="color: white">Etat Civil</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert-primary fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Nom : {{selectedDossier.fullName}}</h3>
+                            <h3>Genre : {{selectedDossier.gender}} </h3>
+                            <h3>Age : {{selectedDossier.age}} </h3>
+                            <h3>Addresse : {{selectedDossier.address}} </h3>
+                            <h3>Telephone : {{selectedDossier.phone}} </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #386fb0;">
+                        <h4 class="card-title" style="color: white">Antecedants medicaux</h4>
+                    </div>
+                    <div class="card-body">
+                        <div *ngFor="let item of selectedDossier.antecedant" class="alert-secondary fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>{{item}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #386fb0;">
+                        <h4 class="card-title" style="color: white">Informations medicales</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Diagnostic Fibrillation: {{selectedDossier.diagnostic}}</h3>
+                        </div>
+                        <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Charge Fibrillation: {{selectedDossier.fibrilationLoad}} % </h3>
+                        </div>
+                        <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Insuffisance Cardiaque: {{selectedDossier.insuffisanceCardiaque}} </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
