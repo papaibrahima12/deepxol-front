@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="card-title mt-0 text-center">Modification du Dossier: {{selectedDossier.dossierNumber}}</h3>
+    </div>
+</div>
+<hr>
+<div class="main-content">
+    <div class="container-fluid">
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-header" style="background-color: #386fb0;">-->
+<!--                        <h4 class="card-title" style="color: white">Etat Civil</h4>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="alert-primary fluid" style="border-radius: 10px;padding-left: 10px;">-->
+<!--                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                <mat-label>Nom</mat-label>-->
+<!--                                <input type="text" matInput [formControlName]="'fullName'"  value="{{selectedDossier.fullName}}">-->
+<!--                            </mat-form-field>-->
+<!--                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                <mat-label>Genre</mat-label>-->
+<!--                                <input type="text" matInput [formControlName]="'gender'" value="{{selectedDossier.gender}}">-->
+<!--                            </mat-form-field>-->
+<!--                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                <mat-label>Age</mat-label>-->
+<!--                                <input type="text" matInput [formControlName]="'age'" value="{{selectedDossier.age}}">-->
+<!--                            </mat-form-field>-->
+<!--                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                <mat-label>Adresse</mat-label>-->
+<!--                                <input type="text" matInput [formControlName]="'address'" value="{{selectedDossier.address}}">-->
+<!--                            </mat-form-field>-->
+<!--                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                <mat-label>Telephone</mat-label>-->
+<!--                                <input type="text" matInput [formControlName]="'phone'" value="{{selectedDossier.phone}}">-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>  -->
+<!--            </div>-->
+<!--        </div>-->
+        <form [formGroup]="updateDossierForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #386fb0;">
+                            <h4 class="card-title" style="color: white">Antécédents medicaux</h4>
+                        </div>
+                        <div class="card-body">
+                            <mat-select [formControlName]="'antecedant'" multiple>
+                                <mat-option *ngFor="let antecedant of antecedantList" [value]="antecedant">{{antecedant}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #386fb0;">
+                            <h4 class="card-title" style="color: white">Informations médicales</h4>
+                        </div>
+                        <div class="card-body">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Diagnostic Fibrillation</mat-label>
+                                <input type="text" matInput [formControlName]="'diagnostic'" value="{{selectedDossier.diagnostic}}">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Charge Fibrillation</mat-label>
+                                <input type="text" matInput [formControlName]="'fibrilationLoad'" value="{{selectedDossier.fibrilationLoad}}">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Ancienneté Implementation</mat-label>
+                                <input type="text" matInput [formControlName]="'fibrilationLoad'" value="{{selectedDossier.implantationOlder}}">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Insuffisance cardiaque</mat-label>
+                                <input type="text" matInput [formControlName]="'insuffisanceCardiaque'" value="{{selectedDossier.insuffisanceCardiaque}}">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Tachychardie artérielle</mat-label>
+                                <input type="text" matInput [formControlName]="'tach_arter_value'" value="{{selectedDossier.tach_arter_value}}">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Chads Vasculaire</mat-label>
+                                <input type="text" matInput [formControlName]="'chads_vasc'" value="{{selectedDossier.chads_vasc}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button mat-raised-button type="submit" style="background-color: #386fb0;" class="btn pull-right" (click)="updateDossier()">Enregistrer</button>
+        </form>
+    </div>
+</div>

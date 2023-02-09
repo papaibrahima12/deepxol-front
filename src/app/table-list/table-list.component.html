@@ -24,44 +24,24 @@
                   <div class="card-body">
                       <div class="table-responsive">
                         <table class="table">
-                            <thead class="text" style="color:#386fb0;">
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Prenom
-                                </th>
-                                <th>
-                                    Age
-                                </th>
-                                <th>
-                                    Fibrillation
-                                </th>
-                                <th>
-                                    Details
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let dossier of fetchedDossier">
-                                    <td>
-                                        {{ dossier.dossierNumber }}
-                                    </td>
-                                    <td>
-                                        {{dossier.fullName}}
-                                    </td>
-                                    <td>
-                                        {{ dossier.age }}
-                                    </td>
-                                    <td>
-                                        {{ dossier.diagnostic }}
-                                    </td>
+                            <tr class="text" style="color:#386fb0;">
+                                <th>ID</th>
+                                <th>Prenom</th>
+                                <th>Age</th>
+                                <th>Fibrillation</th>
+                                <th colspan="2">Details</th>
+                            </tr>
+                            <tr *ngFor="let dossier of fetchedDossier">
+                                    <td>{{ dossier.dossierNumber }}</td>
+                                    <td>{{ dossier.fullName}}</td>
+                                    <td>{{ dossier.age }}</td>
+                                    <td>{{ dossier.diagnostic }}</td>
                                     <td class="text-primary">
-                                        <div class="card-icon" (click)="openDetails(dossier)">
+                                        <div class="card-icon"  (click)="openDetails(dossier)">
                                             <i class="material-icons">remove_red_eye</i>
                                         </div>
                                     </td>
-                                </tr>
-                            </tbody>
+                            </tr>
                         </table>
                       </div>
                   </div>

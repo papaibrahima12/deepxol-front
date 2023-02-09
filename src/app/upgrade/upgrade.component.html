@@ -20,7 +20,6 @@
                                     <select [formControlName]="'gender'" matNativeControl>
                                       <option value="MASCULIN">MASCULIN</option>
                                       <option value="FEMININ">FEMININ</option>
-                                      <option value="N/A">N/A</option>
                                     </select>
                                   </mat-form-field>
                                 </div>
@@ -44,7 +43,6 @@
                                   <select [formControlName]="'race'" matNativeControl>
                                     <option value="NOIRE">Noire</option>
                                     <option value="BLANCHE">Blanche</option>
-                                    <option value="JAUNE">Jaune</option>
                                     <option value="METIS">Metis</option>
                                   </select>
                                 </mat-form-field>
@@ -54,14 +52,12 @@
                                   <input [formControlName]="'age'" matInput placeholder="Age" type="number">
                                 </mat-form-field>
                               </div>
-                              
-                              
                             </div>
 
                             <div class="row">
                               <div class="col-md-4">
                                 <mat-form-field appearance="fill">
-                                  <mat-label>Antecedants</mat-label>
+                                  <mat-label>Antecedents</mat-label>
                                   <mat-select [formControlName]="'antecedant'" multiple>
                                     <mat-option *ngFor="let antecedant of antecedantList" [value]="antecedant">{{antecedant}}</mat-option>
                                   </mat-select>
@@ -76,8 +72,8 @@
                                 <mat-form-field class="example-full-width" appearance="fill">
                                   <mat-label>Insuffisance Cardiaque</mat-label>
                                   <select [formControlName]="'insuffisanceCardiaque'" matNativeControl>
-                                    <option value="OUI">OUI</option>
-                                    <option value="NON">NON</option>
+                                    <option value="1">OUI</option>
+                                    <option value="0">NON</option>
                                   </select>
                                 </mat-form-field>
                               </div>
@@ -89,8 +85,8 @@
                                   <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label>Diagnostic Fibrillation</mat-label>
                                     <select [formControlName]="'diagnostic'" matNativeControl>
-                                      <option value="OUI">OUI</option>
-                                      <option value="NON">NON</option>
+                                      <option value="1">OUI</option>
+                                      <option value="0">NON</option>
                                     </select>
                                   </mat-form-field>
                                 </div>
@@ -101,6 +97,38 @@
                                   </mat-form-field>
                                 </div>
                             </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                  <mat-label>CHADS-VASC</mat-label>
+                                  <select [formControlName]="'chads_vasc'" matNativeControl>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                  </select>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                  <mat-card class="form-card">
+                                      <mat-card-subtitle>Tachychardie Arterielle</mat-card-subtitle>
+                                      <mat-radio-group [formControl]="haveTachArter" [formControlName]="'tach_arter'">
+                                          <mat-radio-button value="oui">OUI</mat-radio-button>
+                                          <mat-radio-button value="non">NON</mat-radio-button>
+                                      </mat-radio-group>
+                                  </mat-card>
+                                  <mat-card class="form-card" *ngIf="showTachArtControl$ | async">
+                                      <mat-card-subtitle>Valeur TA</mat-card-subtitle>
+                                      <mat-form-field appearance="fill">
+                                          <input type="number" matInput [formControlName]="'tach_arter_value'" [max]="30" [min]="0">
+                                      </mat-form-field>
+                                  </mat-card>
+                              </div>
+                          </div>
 
                             <div class="row">
                               <div class="col-md-6">
@@ -113,17 +141,10 @@
                       
                             <div class="row">
                                 <div class="col-md-12">
-                                  <label>Commentaire</label>
+                                  <label>Commentaires</label>
                                   <mat-form-field class="example-full-width">
                                      <textarea [formControlName]="'comment'" matInput placeholder=""></textarea>
                                    </mat-form-field>
-                                    <!-- <div class="form-group">
-  
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                             <button mat-raised-button type="submit" style="background-color: #386fb0;" class="btn pull-right" (click)="addDossier()">Enregistrer</button>
@@ -135,4 +156,3 @@
         </div>
     </div>
   </div>
-  

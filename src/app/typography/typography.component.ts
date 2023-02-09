@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { Dossier } from 'app/interface/Dossier';
+import {UpdateComponentComponent} from '../update-component/update-component.component';
 
 @Component({
   selector: 'app-typography',
@@ -9,13 +10,26 @@ import { Dossier } from 'app/interface/Dossier';
 })
 export class TypographyComponent implements OnInit {
   selectedDossier: any
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any
 
-  ) { }
+  constructor(
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      private _matDialog: MatDialog
+  ) {
+  }
 
   ngOnInit() {
     this.selectedDossier = this.data.dossier
   }
 
+  updateDossier(dossier: Dossier): void {
+    // Open Dialog Modal
+    this._matDialog.open(UpdateComponentComponent, {
+      autoFocus: false,
+      data: {
+        dossier
+      },
+      height: '70%',
+      width: '70%'
+    })
+  }
 }

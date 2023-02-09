@@ -1,7 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-        <h3 class="card-title mt-0 text-center">Numero : {{selectedDossier.dossierNumber}}</h3>
+        <h3 class="card-title mt-0 text-center">Numero Dossier: {{selectedDossier.dossierNumber}}</h3>
     </div>
+</div>
+<div class="px-5">
+    <button (click)="updateDossier(selectedDossier)" mat-icon-button>
+        <mat-icon>border_color</mat-icon>
+    </button>
 </div>
 <hr>
 <div class="main-content">
@@ -55,10 +60,15 @@
                         <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
                             <h3>Insuffisance Cardiaque: {{selectedDossier.insuffisanceCardiaque}} </h3>
                         </div>
+                        <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Tachychardie Arterielle: {{selectedDossier.tach_arter_value}} </h3>
+                        </div>
+                        <div class="alert-dark fluid" style="border-radius: 10px;padding-left: 10px;">
+                            <h3>Chads Vasculaire: {{selectedDossier.chads_vasc}} </h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
   </div>
-  

@@ -11,8 +11,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { UpdateComponentComponent } from './update-component/update-component.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -30,14 +33,17 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatRadioModule,
     MatCheckboxModule,
     MatMenuModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    UpdateComponentComponent,
 
   ],
   providers: [],

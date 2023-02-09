@@ -22,19 +22,19 @@ export class NotificationsComponent implements OnInit {
   }
 
 
-  login(){
-    if (this.loginForm.invalid) return;
-    let payload = Object.assign({}, this.loginForm.value);
-    if(payload.username === 'fadel@esp.sn' && payload.password === 'passer123'){
+  login() {
+    if (this.loginForm.invalid) { return; }
+    const payload = Object.assign({}, this.loginForm.value);
+    if (payload.username === 'fadel@esp.sn' && payload.password === 'passer123') {
       this.router.navigateByUrl('/dashboard')
-    }else{
+    } else {
       Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'Erreur mot de passe',
           timer: 1000
       })
-      console.log("error password username")
+      console.log('error password username')
     }
   }
 

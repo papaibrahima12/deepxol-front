@@ -2,20 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DossierService } from './dossier.service';
 
 
-interface Food {
-  value: string;
-  viewValue: string;
-}
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.component.html',
   styleUrls: ['./upgrade.component.css']
 })
 export class UpgradeComponent implements OnInit {
+
+  haveTachArter !: FormControl
+  showTachArtControl$!: Observable<boolean>;
+
   createDossierForm: FormGroup;
   antecedantList: string[] = ['Hypertension', 'Diabete', 'AVC', 'Apnee de Sommeil', 'Obesite', 'Asthme'];
   antecedant: any
@@ -44,10 +46,20 @@ export class UpgradeComponent implements OnInit {
       implantationOlder: [''],
       fibrilationLoad: ['', Validators.required],
       age: [''],
-      insuffisanceCardiaque: ['']
+      insuffisanceCardiaque: [''],
+      tach_arter: [''],
+      tach_arter_value: [''],
+      chads_vasc: ['', Validators.required],
     });
+    this.haveTachArter = this._formBuilder.control('non');
+    this.initFormObservable();
   }
 
+  private initFormObservable() {
+    this.showTachArtControl$ = this.haveTachArter.valueChanges.pipe(
+      map(preference => preference === 'oui'),
+    );
+  }
   uploadElectroImage(fileList: FileList): void {
     // Return if canceled
     if (!fileList.length) {
@@ -67,12 +79,12 @@ export class UpgradeComponent implements OnInit {
         return;
     }
   }
-  
-  addDossier(){
-    if (this.createDossierForm.invalid) return;
 
-    
-    let payload = Object.assign({}, this.createDossierForm.value);
+  addDossier() {
+    if (this.createDossierForm.invalid) { return; }
+
+
+    const payload = Object.assign({}, this.createDossierForm.value);
     const formData = new FormData();
 
     formData.append('electro', payload?.electro as undefined)
@@ -88,14 +100,17 @@ export class UpgradeComponent implements OnInit {
     formData.append('implantationOlder', payload?.implantationOlder)
     formData.append('fibrilationLoad', payload?.fibrilationLoad)
     formData.append('insuffisanceCardiaque', payload?.insuffisanceCardiaque)
+    formData.append('chads_vasc', payload?.chads_vasc)
+    formData.append('tach_arter', payload?.tach_arter)
+    formData.append('tach_arter_value', payload?.tach_arter_value)
 
     this._dossierService.createDossier(formData).subscribe({
       next(value) {
         Swal.fire({
           icon: 'success',
           title: 'Success',
-          text: 'Dossier enregistre',
-          timer: 1000
+          text: 'Dossier enregistré avec succés',
+          timer: 10000
         })
         this._router.navigateByUrl('/#/table-list')
       },
