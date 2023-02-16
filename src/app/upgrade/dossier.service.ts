@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dossier } from 'app/interface/Dossier';
-import axios from 'axios';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
@@ -19,16 +18,10 @@ export class DossierService {
         private _httpClient: HttpClient
     ) { }
 
-
-    /**
-     * Getter for fetchedNodes
-     */
      get fetchedNodes$(): Observable<Dossier[]> {
         return this._fetchedDossiers.asObservable()
     }
-    /**
-     * Getter for fetchedNodes
-     */
+
      get fetchedStatistics$(): Observable<any> {
         return this._fetchedStatistics.asObservable()
     }
@@ -55,5 +48,12 @@ export class DossierService {
         .pipe(
             tap(payload => this._fetchedStatistics.next(payload)),
         )
+    }
+
+    getDossiers(): Observable<any> {
+        return this._httpClient.get<any>(`${environment.apiUrl}/api/dossier/number/:numero`)
+            .pipe(
+                tap(payload => this._fetchedDossiers.next(payload)),
+            )
     }
 }

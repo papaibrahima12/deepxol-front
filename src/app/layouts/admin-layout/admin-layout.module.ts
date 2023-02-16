@@ -20,6 +20,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import {MatIconModule} from '@angular/material/icon';
         MatRadioModule,
         MatCardModule,
         MatIconModule,
+        MatAutocompleteModule,
     ],
   declarations: [
     DashboardComponent,

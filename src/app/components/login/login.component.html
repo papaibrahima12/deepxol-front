@@ -1,31 +1,129 @@
-<div class="container my-3">
-    <div class="row text-center mb-5">
-        <div class="col-md-12 bg-light p-3">
-            <h2>Login</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" formControlName="username" placeholder="Username" />
-                    <div *ngIf="submitted && f.username.errors">
-                        <small *ngIf="f.username.errors.required" class="form-text text-muted">Username is required</small>
+<!--<div class="row" style="height: 100vh;">-->
+<!--    <div class="col-md-12 text-center bg-dark">-->
+<!--        <div class="main-content">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="row">-->
+<!--                    <div style="width: 40%; margin-left:30%; margin-right:30%;margin-top: 10%;">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-header">-->
+<!--                                <h4 class="card-title">Connexion</h4>-->
+<!--                            </div>-->
+<!--                            <div class="card-body">-->
+<!--                                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-md-12">-->
+<!--                                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                                <input [formControlName]="'username'" matInput placeholder="Username" type="text">-->
+<!--                                            </mat-form-field>-->
+<!--                                            <div *ngIf="submitted && f.username.errors">-->
+<!--                                                <small *ngIf="f.username.errors.required" class="form-text text-muted">Username is required</small>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-md-12">-->
+<!--                                            <mat-form-field class="example-full-width" appearance="fill">-->
+<!--                                                <input [formControlName]="'password'" matInput placeholder="password" type="password">-->
+<!--                                            </mat-form-field>-->
+<!--                                            <div *ngIf="submitted && f.password.errors">-->
+<!--                                                <small *ngIf="f.password.errors.required" class="form-text text-muted">Password is required</small>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <button mat-raised-button type="submit" class="btn btn-info pull-center">Connexion</button>-->
+<!--                                    <div class="clearfix"></div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<section class="background-radial-gradient overflow-hidden">
+    <style>
+        .background-radial-gradient {
+            background-color: hsl(218, 41%, 15%);
+            background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+            radial-gradient(1250px circle at 100% 100%,
+                    hsl(218, 41%, 45%) 15%,
+                    hsl(218, 41%, 30%) 35%,
+                    hsl(218, 41%, 20%) 75%,
+                    hsl(218, 41%, 19%) 80%,
+                    transparent 100%);
+        }
+
+        #radius-shape-1 {
+            height: 220px;
+            width: 220px;
+            top: -60px;
+            left: -130px;
+            background: radial-gradient(#e6e1e8, #2ac32d);
+            overflow: hidden;
+        }
+
+        #radius-shape-2 {
+            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+            bottom: -60px;
+            right: -110px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(#fbfbfb, #52c554);
+            overflow: hidden;
+        }
+
+        .bg-glass {
+            background-color: hsla(0, 0%, 100%, 0.9) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+        }
+    </style>
+
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                    Se connecter à la plateforme<br />
+                    <span style="color: hsl(218, 81%, 75%)">DeepXol</span>
+                </h1>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                <div class="card bg-glass">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3">Nom d'utilisateur</label>
+                                <input [formControlName]="'username'" type="text" id="form3Example3" class="form-control" />
+                                <div *ngIf="submitted && f.username.errors">
+                                    <small *ngIf="f.username.errors.required" class="form-text text-muted">Le nom d'utilisateur est requis</small>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example4">Mot de passe</label>
+                                <input [formControlName]="'password'" type="password" id="form3Example4" class="form-control" />
+                                <div *ngIf="submitted && f.password.errors">
+                                    <small *ngIf="f.password.errors.required" class="form-text text-muted">Le mot de passe est requis</small>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                             Se Connecter
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" />
-                    <div *ngIf="submitted && f.password.errors">
-                        <small *ngIf="f.password.errors.required" class="form-text text-muted">Password is required</small>
-                    </div>
-                </div>
-                <div *ngIf="error" class="my-3">
-                    <small class="form-text text-muted">{{ error | json }}</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
+

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})
 
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.logout();
 
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
   }
 
   get f() {
@@ -38,13 +39,20 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.f.username.value, this.f.password.value)
-        .pipe(first())
-        .subscribe(data => {
-          this.error = '';
-          this.router.navigate([this.returnUrl]);
-        }, error => {
-          this.error = error;
-        });
+    this.authService.login(this.f.username.value, this.f.password.value).pipe(first()).subscribe(data => {
+      this.error = '';
+      this.router.navigate([this.returnUrl]);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Login et/ou mot de passe incorrect',
+        timer: 1000
+      })
+    });
+  }
+
+  getUser() {
+    return this.f.username;
   }
 }

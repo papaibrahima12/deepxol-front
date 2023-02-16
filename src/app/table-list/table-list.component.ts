@@ -1,12 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Dossier} from 'app/interface/Dossier';
 import {DossierService} from 'app/upgrade/dossier.service';
 import {UpgradeComponent} from 'app/upgrade/upgrade.component';
 import {TypographyComponent} from 'app/typography/typography.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Observable, of, tap} from 'rxjs';
+import {environment} from '../../environments/environment';
 
+@Injectable({
+  providedIn: 'root',
+})
+export class Service {
+
+  opts = [];
+  constructor(private http: HttpClient) {}
+
+  getData() {
+    return this.opts.length
+        ? of(this.opts)
+        : this.http
+            .get<any>(`${environment.apiUrl}/api/dossier`)
+            .pipe(tap((data) => (this.opts = data)));
+  }
+}
 
 @Component({
   selector: 'app-table-list',
@@ -16,22 +34,17 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class TableListComponent implements OnInit {
   fetchedDossier: any
   searchForm: FormGroup;
-  searchedDossier: any
-  closeResult: string;
 
   constructor(
     private _matDialog: MatDialog,
     private _dossierService: DossierService,
-    private _formBuilder: FormBuilder,
-    private modalService: NgbModal
-    ) {}
+    private _formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void  {
-
     this.searchForm = this._formBuilder.group({
-      search: ['' || null],
+      search: ['' || null, Validators.required],
     });
-
     this._dossierService.fetchedNodes$.subscribe({
       next: (response: Dossier[]) => {
           this.fetchedDossier = response
@@ -68,20 +81,25 @@ export class TableListComponent implements OnInit {
 
   search() {
     const payload = Object.assign({}, this.searchForm.value);
-    if (payload.search == null || payload.search === '') {
-      this._dossierService.fetchedNodes$.subscribe({
-        next: (response: Dossier[]) => {
-            this.fetchedDossier = response
-        },
-        error: (errors) => {
-            console.log(errors);
-        },
-      })
-      console.log(this.fetchedDossier)
-    } else {
       console.log('something to search')
-      this.fetchedDossier = this.fetchedDossier.filter(dossier => dossier.dossierNumber === payload.search)
+      if(payload.search === null || payload.search === '') {
+        this._dossierService.fetchedNodes$.subscribe({
+          next: (response: Dossier[]) => {
+            this.fetchedDossier = response
+          },
+          error: (errors) => {
+            console.log(errors);
+          },
+        })
+      } else {
+        this._dossierService.fetchedNodes$.subscribe({
+          next: (response: Dossier[]) => {
+            this.fetchedDossier = response.filter(dossier => dossier.dossierNumber === payload.search)
+          },
+          error: (errors) => {
+            console.log(errors);
+          },
+        })
+      }
     }
-  }
-
 }

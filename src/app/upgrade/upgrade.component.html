@@ -72,8 +72,8 @@
                                 <mat-form-field class="example-full-width" appearance="fill">
                                   <mat-label>Insuffisance Cardiaque</mat-label>
                                   <select [formControlName]="'insuffisanceCardiaque'" matNativeControl>
-                                    <option value="1">OUI</option>
-                                    <option value="0">NON</option>
+                                    <option value="OUI">OUI</option>
+                                    <option value="NON">NON</option>
                                   </select>
                                 </mat-form-field>
                               </div>
@@ -85,8 +85,8 @@
                                   <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label>Diagnostic Fibrillation</mat-label>
                                     <select [formControlName]="'diagnostic'" matNativeControl>
-                                      <option value="1">OUI</option>
-                                      <option value="0">NON</option>
+                                      <option value="OUI">OUI</option>
+                                      <option value="NON">NON</option>
                                     </select>
                                   </mat-form-field>
                                 </div>
@@ -129,14 +129,20 @@
                                   </mat-card>
                               </div>
                           </div>
-
+                            <br />
                             <div class="row">
                               <div class="col-md-6">
-                                <label for="">Electrocardiogramme</label>
+                                <label for="electrocardiogramme">Electrocardiogramme(Fichier XML)</label>
                                 <mat-form-field class="example-full-width">
-                                  <input id="avatar-file-input" (change)="uploadElectroImage(avatarFileInput.files)" #avatarFileInput matInput type="file">
+                                  <input type="file" id="avatar-file-input" accept=".xml" matInput (change)="uploadElectroImage(avatarFileInput.files)" #avatarFileInput >
                                 </mat-form-field>
                               </div>
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="">Electrocardiogramme(XML)</label>-->
+<!--                                    <mat-form-field class="example-full-width">-->
+<!--                                        <input id="avatar-file-input" [formControlName]="'electros'" accept="" (change)="uploadElectroXmlFile($event)" #avatarFileInput matInput type="file">-->
+<!--                                    </mat-form-field>-->
+<!--                                </div>-->
                             </div>
                       
                             <div class="row">

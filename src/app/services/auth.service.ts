@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as Http from 'http';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
@@ -20,14 +19,15 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this._httpClient.post<any>(`${environment.apiUrl}/auth/login`, { username, password }).pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.access_token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+    return this._httpClient.post<any>(`${environment.apiUrl}/auth/login`, { username, password }).
+    pipe(
+        map(({token}) => {
+          const user: { access_token: any; username: string } = {
+            username: username,
+            access_token: token,
+          };
             localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
-          }
+            this.currentUserSubject.next(<User>user);
           return user;
         })
     );
@@ -35,5 +35,11 @@ export class AuthService {
   logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+  public get userValue(): User {
+    return this.currentUserSubject.value;
+  }
+  public getUsername(): string {
+    return this.currentUserSubject.value.username;
   }
 }

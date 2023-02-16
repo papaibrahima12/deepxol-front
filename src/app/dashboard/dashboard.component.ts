@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DossierService } from 'app/upgrade/dossier.service';
 import * as Chartist from 'chartist';
 import Swal from 'sweetalert2';
+import {AuthService} from '../services/auth.service';
+import {Router} from '@angular/router';
+import {User} from '../interface/User';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,9 +15,13 @@ export class DashboardComponent implements OnInit {
   fetchedStatistics: any
   total: any
   fibrillation: any
-  notFibirillation: any
+  notFibirillation: any;
+  public loggedIn = false;
+  currentUser: User;
 
-  constructor(private _dossierService: DossierService) { }
+  constructor(private _dossierService: DossierService, private authService: AuthService, private readonly router: Router) {
+      this.authService.currentUser.subscribe(user => this.currentUser = user);
+  }
 
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
@@ -164,5 +171,6 @@ export class DashboardComponent implements OnInit {
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
   }
+
 
 }

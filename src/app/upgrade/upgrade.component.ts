@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { map, startWith } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DossierService } from './dossier.service';
@@ -20,9 +20,10 @@ export class UpgradeComponent implements OnInit {
 
   createDossierForm: FormGroup;
   antecedantList: string[] = ['Hypertension', 'Diabete', 'AVC', 'Apnee de Sommeil', 'Obesite', 'Asthme'];
-  antecedant: any
+  antecedant: any;
   selectedImgUrl: any;
-
+  selectedImgFile: File;
+  selectedXmlFile: File;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -37,7 +38,9 @@ export class UpgradeComponent implements OnInit {
       fullName: ['', Validators.required],
       phone: [''],
       address: [''],
-      electro: [],
+      electro: ['', Validators.required],
+      // electro_img: ['', Validators.required],
+      // electro_xml: ['', Validators.required],
       diagnostic: ['', Validators.required],
       comment: [''],
       gender: [''],
@@ -60,35 +63,24 @@ export class UpgradeComponent implements OnInit {
       map(preference => preference === 'oui'),
     );
   }
-  uploadElectroImage(fileList: FileList): void {
-    // Return if canceled
-    if (!fileList.length) {
-        return;
-    }
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+  uploadElectroImage(fileList: FileList) {
     const file = fileList[0];
-    this.createDossierForm.get('electro').setValue(file)
-
+    this.createDossierForm.get('electro').setValue(file);
     const reader = new FileReader();
     reader.onload = e => this.selectedImgUrl = reader.result;
     reader.readAsDataURL(file);
-
-    // Return if the file is not allowed
-    if (!allowedTypes.includes(file.type)) {
-        return;
     }
-  }
 
   addDossier() {
     if (this.createDossierForm.invalid) { return; }
 
-
     const payload = Object.assign({}, this.createDossierForm.value);
     const formData = new FormData();
-
     formData.append('electro', payload?.electro as undefined)
     formData.append('fullName', payload?.fullName)
+    // formData.append('electros[]', this.selectedImgFile)
+    // formData.append('electros[]', this.selectedXmlFile)
     formData.append('age', payload?.age)
     formData.append('gender', payload?.gender)
     formData.append('address', payload?.address)
@@ -110,7 +102,7 @@ export class UpgradeComponent implements OnInit {
           icon: 'success',
           title: 'Success',
           text: 'Dossier enregistré avec succés',
-          timer: 10000
+          timer: 1000
         })
         this._router.navigateByUrl('/#/table-list')
       },

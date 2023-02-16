@@ -21,8 +21,8 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="javascript:void(0)">fadel@esp.sn</a>
-                        <a class="dropdown-item" href="javascript:void(0)">Administrateur</a>                        
+                        <a class="dropdown-item" href="javascript:void(0)">{{this.user}}</a>
+                        <button class="btn btn-danger dropdown-item" (click)="logout()">Se déconnecter</button>
                     </div>
                 </li>
                
