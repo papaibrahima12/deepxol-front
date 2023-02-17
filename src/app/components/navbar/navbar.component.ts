@@ -4,6 +4,12 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import {LoginComponent} from '../login/login.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Dossier} from '../../interface/Dossier';
+import {DossierService} from '../../upgrade/dossier.service';
+import {UpgradeComponent} from '../../upgrade/upgrade.component';
+import {MatDialog} from '@angular/material/dialog';
+import {TypographyComponent} from '../../typography/typography.component';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +17,7 @@ import {LoginComponent} from '../login/login.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    fetchedDossier: any
     public loggedIn = false;
     public user = this.authservice.getUsername();
     private listTitles: any[];
@@ -18,8 +25,15 @@ export class NavbarComponent implements OnInit {
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    searchForm: FormGroup;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router, private readonly authservice: AuthService) {
+    constructor(location: Location,
+                private _matDialog: MatDialog,
+                private _dossierService: DossierService,
+                private _formBuilder: FormBuilder,
+                private element: ElementRef,
+                private router: Router,
+                private readonly authservice: AuthService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -37,6 +51,17 @@ export class NavbarComponent implements OnInit {
          }
      });
         this.loggedIn = !!this.authservice.currentUser;
+        this.searchForm = this._formBuilder.group({
+            search: ['' || null, Validators.required],
+        });
+        this._dossierService.fetchedNodes$.subscribe({
+            next: (response: Dossier[]) => {
+                this.fetchedDossier = response
+            },
+            error: (errors) => {
+                console.log(errors);
+            },
+        })
     }
 
     sidebarOpen() {
@@ -113,6 +138,50 @@ export class NavbarComponent implements OnInit {
 
         }
     };
+    search() {
+        const payload = Object.assign({}, this.searchForm.value);
+        console.log('something to search')
+        if(payload.search === null || payload.search === '') {
+            this._dossierService.fetchedNodes$.subscribe({
+                next: (response: Dossier[]) => {
+                    this.fetchedDossier = response
+                },
+                error: (errors) => {
+                    console.log(errors);
+                },
+            })
+        } else {
+            this._dossierService.fetchedNodes$.subscribe({
+                next: (response: Dossier[]) => {
+                    this.fetchedDossier = response.filter(dossier => dossier.dossierNumber === payload.search)
+                },
+                error: (errors) => {
+                    console.log(errors);
+                },
+            })
+        }
+    }
+
+
+    openDetails(dossier: Dossier): void {
+        // Open Dialog Modal
+        this._matDialog.open(TypographyComponent, {
+            autoFocus: false,
+            data: {
+                dossier
+            },
+            height: '70%',
+            width: '70%'
+        })
+    }
+
+    add() {
+        this._matDialog.open(UpgradeComponent, {
+            autoFocus: true,
+            height: '70%',
+            width: '70%'
+        });
+    }
 
     getTitle() {
         let titlee = this.location.prepareExternalUrl(this.location.path());
