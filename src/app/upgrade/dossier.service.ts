@@ -31,9 +31,9 @@ export class DossierService {
         return this._httpClient.post(`${environment.apiUrl}/api/dossier`, data)
     }
 
-    updateDossier(id: string, data) {
-         console.log(data)
-        return this._httpClient.put(`${environment.apiUrl}/api/dossier/:id`, data)
+    updateDossier(id: string, dossier: FormData) {
+         console.log(dossier)
+        return this._httpClient.put<Dossier>(`${environment.apiUrl}/api/dossier/${id}`, dossier)
     }
 
     getAllDossier(): Observable<Dossier[]> {
@@ -48,12 +48,5 @@ export class DossierService {
         .pipe(
             tap(payload => this._fetchedStatistics.next(payload)),
         )
-    }
-
-    getDossiers(): Observable<any> {
-        return this._httpClient.get<any>(`${environment.apiUrl}/api/dossier/number/:numero`)
-            .pipe(
-                tap(payload => this._fetchedDossiers.next(payload)),
-            )
     }
 }

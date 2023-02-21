@@ -1,22 +1,29 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row justify-content-end">
-          <div class="col-6">
-              <form [formGroup]="searchForm" class="navbar-form">
-                  <div class="input-group no-border">
-                      <input type="text" [formControlName]="'search'" autocomplete="on" value="" class="form-control" [matAutocomplete]="" placeholder="Rechercher...">
-                      <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon " (click)="search()">
-                          <i class="material-icons">search</i>
-                          <div class="ripple-container"></div>
-                      </button>
-                  </div>
-              </form>
-          </div>
           <div class="">
-              <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon " (click)="add()">
+              <button mat-raised-button type="submit" class="btn btn-primary btn-round btn-just-icon " (click)="add()">
                   <i class="material-icons">add</i>
                   <div class="ripple-container"></div>
               </button>
+          </div>
+          <div class="col-3">
+              <form [formGroup]="searchForm" class="navbar-form">
+              <div class="input-group rounded">
+                  <input type="search" [formControlName]="'search'" (click)="search()" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                  <span style="cursor: pointer" (click)="search()" class="input-group-text border-0" id="search-addon">
+                     <i class="material-icons">search</i>
+                  </span>
+              </div>
+              </form>
+
+<!--                  <div class="input-group no-border">-->
+<!--                      <input type="text" [formControlName]="'search'" autocomplete="on" value="" class="form-control" [matAutocomplete]="" placeholder="Rechercher...">-->
+<!--                      <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon " (click)="search()">-->
+<!--                          <i class="material-icons">search</i>-->
+<!--                          <div class="ripple-container"></div>-->
+<!--                      </button>-->
+<!--                  </div>-->
           </div>
       </div>
       <div class="row">
@@ -49,7 +56,8 @@
                                 <th>Prenom</th>
                                 <th>Age</th>
                                 <th>Fibrillation</th>
-                                <th colspan="2">Details</th>
+                                <th>Details</th>
+                                <th>Modifier</th>
                             </tr>
                             <tr *ngFor="let dossier of fetchedDossier">
                                     <td>{{ dossier.dossierNumber }}</td>
@@ -57,8 +65,13 @@
                                     <td>{{ dossier.age }}</td>
                                     <td>{{ dossier.diagnostic }}</td>
                                     <td class="text-primary">
-                                        <div class="card-icon"  (click)="openDetails(dossier)">
+                                        <div class="card-icon" style="cursor: pointer" (click)="openDetails(dossier)">
                                             <i class="material-icons">remove_red_eye</i>
+                                        </div>
+                                    </td>
+                                    <td class="text-primary">
+                                        <div class="card-icon" style="cursor: pointer" (click)="updateDossier(dossier)">
+                                            <i class="material-icons">edit</i>
                                         </div>
                                     </td>
                             </tr>

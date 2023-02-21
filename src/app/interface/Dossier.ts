@@ -1,4 +1,5 @@
 export interface Dossier {
+    id: string,
     dossierNumber: string,
     address: string,
     createdAt: Date

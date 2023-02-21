@@ -20,16 +20,4 @@ export class TypographyComponent implements OnInit {
   ngOnInit() {
     this.selectedDossier = this.data.dossier
   }
-
-  updateDossier(dossier: Dossier): void {
-    // Open Dialog Modal
-    this._matDialog.open(UpdateComponentComponent, {
-      autoFocus: false,
-      data: {
-        dossier
-      },
-      height: '70%',
-      width: '70%'
-    })
-  }
 }

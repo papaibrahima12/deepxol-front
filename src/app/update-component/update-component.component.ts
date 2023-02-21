@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DossierService} from '../upgrade/dossier.service';
 import Swal from 'sweetalert2';
+import {param} from 'jquery';
 
 @Component({
   selector: 'app-update-component',
@@ -15,7 +16,6 @@ export class UpdateComponentComponent implements OnInit {
   selectedDossier: any
   antecedantList: string[] = ['Hypertension', 'Diabete', 'AVC', 'Apnee de Sommeil', 'Obesite', 'Asthme'];
   selectedImgUrl: any;
-
   constructor(
       @Inject(MAT_DIALOG_DATA) public data: any,
       private _matDialog: MatDialog,
@@ -37,23 +37,6 @@ export class UpdateComponentComponent implements OnInit {
       chads_vasc: this.selectedDossier.chads_vasc,
     })
   }
-  uploadElectroImage(fileList: FileList): void {
-    if (!fileList.length) {
-      return;
-    }
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    const file = fileList[0];
-    this.updateDossierForm.get('electro').setValue(file)
-
-    const reader = new FileReader();
-    reader.onload = e => this.selectedImgUrl = reader.result;
-    reader.readAsDataURL(file);
-
-    // Return if the file is not allowed
-    if (!allowedTypes.includes(file.type)) {
-      return;
-    }
-  }
 
   updateDossier() {
     if (this.updateDossierForm.invalid) {
@@ -72,16 +55,16 @@ export class UpdateComponentComponent implements OnInit {
     formDataUpdate.append('tach_arter_value', payload?.tach_arter_value)
 
     this._dossierService.updateDossier(this.selectedDossier._id, formDataUpdate).subscribe({
-      next(value) {
+      next() {
         Swal.fire({
           icon: 'success',
           title: 'Success',
           text: 'Dossier modifié avec succès',
-          timer: 10000
+          timer: 1000
         })
         this._router.navigateByUrl('/#/table-list')
       },
-      error(err) {
+      error() {
         Swal.fire({
           icon: 'error',
           title: 'Error',

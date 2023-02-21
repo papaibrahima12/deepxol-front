@@ -8,6 +8,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of, tap} from 'rxjs';
 import {environment} from '../../environments/environment';
+import * as mdb from 'mdb-ui-kit'; // lib
+import { Input } from 'mdb-ui-kit';
+import {UpdateComponentComponent} from '../update-component/update-component.component'; // module
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +76,18 @@ export class TableListComponent implements OnInit {
       autoFocus: false,
       data: {
           dossier
+      },
+      height: '70%',
+      width: '70%'
+    })
+  }
+
+  updateDossier(dossier: Dossier): void {
+    // Open Dialog Modal
+    this._matDialog.open(UpdateComponentComponent, {
+      autoFocus: false,
+      data: {
+        dossier
       },
       height: '70%',
       width: '70%'
